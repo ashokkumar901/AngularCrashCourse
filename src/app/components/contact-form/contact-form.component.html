@@ -1,0 +1,21 @@
+<form>
+    <div class="form-group">
+        <label for="firstName">FirstName</label>
+        <input required minlength="3" maxlength="10" pattern="banana" ngModel name="firstName" #firstName='ngModel'
+            (change)="log(firstName)" id="firstName" type="text" class="form-control">
+        <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+            <div *ngIf="firstName.errors.required">FirstName required</div>
+            <div *ngIf="firstName.errors.minlength">Min length should be {{firstName.errors.minlength.requiredLength}}
+            </div>
+            <div *ngIf="firstName.errors.maxlength">Max length should be 10</div>
+            <div *ngIf="firstName.errors.pattern">The pattern doesn't match</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="comment"></label>
+        <textarea id="comment" ngModel name="comment" cols="30" rows="10" class="form-control">Comment</textarea>
+    </div>
+
+    <button class="btn btn-primary">Submit</button>
+</form>
