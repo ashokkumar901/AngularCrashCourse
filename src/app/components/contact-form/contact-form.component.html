@@ -1,21 +1,41 @@
-<form>
+<form #f="ngForm" ngSubmit="submit(f)">
     <div class="form-group">
-        <label for="firstName">FirstName</label>
-        <input required minlength="3" maxlength="10" pattern="banana" ngModel name="firstName" #firstName='ngModel'
-            (change)="log(firstName)" id="firstName" type="text" class="form-control">
-        <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
-            <div *ngIf="firstName.errors.required">FirstName required</div>
-            <div *ngIf="firstName.errors.minlength">Min length should be {{firstName.errors.minlength.requiredLength}}
+        <label for="courseName">
+            <h3>Course Name</h3>
+        </label>
+        <input required minlength="5" maxlength="10" ngModel name="courseName" #courseName='ngModel' id="courseName"
+            type="text" class="form-control">
+        <div class="alert alert-danger" *ngIf="courseName.touched && !courseName.valid">
+            <div *ngIf="courseName.errors.required">CourseName required</div>
+            <div *ngIf="courseName.errors.minlength">Min length should be
+                {{courseName.errors.minlength.requiredLength}}
             </div>
-            <div *ngIf="firstName.errors.maxlength">Max length should be 10</div>
-            <div *ngIf="firstName.errors.pattern">The pattern doesn't match</div>
+            <div *ngIf="courseName.errors.maxlength">Max length should be 10</div>
         </div>
     </div>
 
     <div class="form-group">
-        <label for="comment"></label>
-        <textarea id="comment" ngModel name="comment" cols="30" rows="10" class="form-control">Comment</textarea>
+        <label for="category">
+            <h3>Category</h3>
+        </label>
+        <select ngModel name="category" id="category" class="form-control">
+            <option value=""></option>
+            <option *ngFor="let cValue of categoryList" [value]="cValue.id">
+                {{cValue.name}}
+            </option>
+        </select>
     </div>
 
-    <button class="btn btn-primary">Submit</button>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" ngModel name="hasGurantee">
+            30-day money-back guarantee
+        </label>
+    </div>
+    <p>
+        {{f.value | json}}
+    </p>
+
+    <button class="btn btn-primary" [disabled]="!f.valid">Create</button>
+
 </form>
